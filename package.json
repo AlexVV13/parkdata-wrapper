@@ -1,0 +1,21 @@
+{
+  "name": "parkdata",
+  "version": "1.0.0",
+  "description": "Wrapper to fetch theme park data in readable JSON",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "parkdata"
+  ],
+  "author": "AlexVV",
+  "license": "MIT",
+  "dependencies": {
+    "adm-zip": "^0.5.16",
+    "axios": "^1.12.2",
+    "better-sqlite3": "^12.4.1",
+    "moment-timezone": "^0.6.0"
+  }
+}
