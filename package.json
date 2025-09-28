@@ -2,20 +2,42 @@
   "name": "parkdata",
   "version": "1.0.0",
   "description": "Wrapper to fetch theme park data in readable JSON",
-  "main": "index.js",
   "type": "module",
+  "main": "./index.js",
+  "exports": {
+    ".": "./index.js"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test/test.js",
+    "lint": "eslint .",
+    "build": "echo \"No build step needed for now\""
   },
   "keywords": [
-    "parkdata"
+    "parkdata",
+    "theme-park",
+    "wait-times",
+    "parks",
+    "attractions"
   ],
   "author": "AlexVV",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexVV/parkdata.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AlexVV/parkdata/issues"
+  },
+  "homepage": "https://github.com/AlexVV/parkdata#readme",
   "dependencies": {
     "adm-zip": "^0.5.16",
     "axios": "^1.12.2",
     "better-sqlite3": "^12.4.1",
     "moment-timezone": "^0.6.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.50.0",
+    "jest": "^29.7.0"
   }
 }
+
