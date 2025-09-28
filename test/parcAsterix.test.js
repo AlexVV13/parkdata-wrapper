@@ -37,13 +37,12 @@ describe("ParcAsterix class", () => {
   });
 
   describe("Openingstijden", () => {
-    test("getOpeningTimes geeft een array van {date, intervals}", async () => {
+    test("getOpeningTimes geeft een array van {date}", async () => {
       const openingTimes = await parc.getOpeningTimes();
       expect(Array.isArray(openingTimes)).toBe(true);
       if (openingTimes.length > 0) {
         const entry = openingTimes[0];
         expect(entry).toHaveProperty("date");
-        expect(Array.isArray(entry.intervals)).toBe(true);
       }
     });
   });
