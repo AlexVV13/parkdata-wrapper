@@ -5,18 +5,23 @@
 const cache = new Map();
 
 /**
+ * Callback type voor een async fetch functie.
+ * @callback FetchFn
+ * @returns {Promise<any>}
+ */
+
+/**
  * Cached wrapper voor async fetch functies.
- * @template T
  * @param {string} key - Unieke cache key
  * @param {number} ttlMs - Time-to-live in milliseconden
- * @param {() => Promise<T>} fetchFn - Async functie die data ophaalt
- * @returns {Promise<T>} - Cached of nieuwe data
+ * @param {FetchFn} fetchFn - Async functie die data ophaalt
+ * @returns {Promise<any>} - Cached of nieuwe data
  */
 export async function cached(key, ttlMs, fetchFn) {
   const now = Date.now();
   const entry = cache.get(key);
 
-  if (entry && (now - entry.timestamp) < ttlMs) {
+  if (entry && now - entry.timestamp < ttlMs) {
     return entry.value;
   }
 

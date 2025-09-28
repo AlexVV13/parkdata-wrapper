@@ -3,7 +3,13 @@ import { QUEUE_TYPES } from "./queueTypes.js";
 import { TAGS } from "./tagsConfig.js";
 
 /**
- * Abstract base class voor een attractiepark.
+ * Callback type voor een async fetch functie.
+ * @callback FetchFn
+ * @returns {Promise<any>}
+ */
+
+/**
+ * Abstracte base class voor een attractiepark.
  * Wordt uitgebreid door concrete parkmodules.
  */
 export default class ParkBase {
@@ -46,8 +52,8 @@ export default class ParkBase {
    * Cached fetch wrapper.
    * @param {string} key - Cache key
    * @param {number} ttl - Tijd in seconden
-     * @param {() => Promise<*>} fn - Fetch functie
-     * @returns {Promise<*>}
+   * @param {FetchFn} fn - Async fetch functie
+   * @returns {Promise<any>}
    */
   async cachedFetch(key, ttl, fn) {
     return cached(`${this.parkId}:${key}`, ttl, fn);
@@ -174,3 +180,4 @@ export default class ParkBase {
     };
   }
 }
+
