@@ -44,11 +44,10 @@ export default class ParkBase {
 
   /**
    * Cached fetch wrapper.
-   * @template T
    * @param {string} key - Cache key
    * @param {number} ttl - Tijd in seconden
-   * @param {() => Promise<T>} fn - Fetch functie
-   * @returns {Promise<T>}
+     * @param {() => Promise<*>} fn - Fetch functie
+     * @returns {Promise<*>}
    */
   async cachedFetch(key, ttl, fn) {
     return cached(`${this.parkId}:${key}`, ttl, fn);
@@ -175,4 +174,3 @@ export default class ParkBase {
     };
   }
 }
-
