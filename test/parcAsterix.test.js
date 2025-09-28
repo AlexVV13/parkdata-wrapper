@@ -43,7 +43,6 @@ describe("ParcAsterix class", () => {
       if (openingTimes.length > 0) {
         const entry = openingTimes[0];
         expect(entry).toHaveProperty("date");
-        expect(entry).toHaveProperty("intervals");
         expect(Array.isArray(entry.intervals)).toBe(true);
       }
     });
