@@ -7,7 +7,7 @@ async function demo() {
   console.dir(await efteling.getAttractions(), { depth: null });
   //console.log(await efteling.getShows());
   // console.log(await efteling.getRestaurants());
-  console.log(await efteling.getOpeningTimes());
+  //console.dir(await efteling.getOpeningTimes(), { depth: null });
 }
 
 demo();
