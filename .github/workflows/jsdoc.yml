@@ -22,7 +22,7 @@ jobs:
         run: npx jsdoc -c jsdoc.json -d docs
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v5
+        uses: peaceiris/actions-gh-pages@v4
         with:
           ssh-private-key: ${{ secrets.GH_PAGES_SSH_KEY }}
           publish_dir: ./docs
