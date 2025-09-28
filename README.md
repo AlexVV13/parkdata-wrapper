@@ -5,6 +5,7 @@ Een Node.js-module voor het ophalen van parkgegevens, zoals attracties, restaura
 ### Badges
 
 ![Node.js CI](https://github.com/AlexVV13/parkdata-wrapper/actions/workflows/nodejs.yml/badge.svg)
+![Documentation](https://github.com/AlexVV13/parkdata-wrapper/actions/workflows/jsdoc.yml/badge.svg)
 ![Dependabot Status](https://img.shields.io/badge/dependabot-up_to_date-brightgreen)
 ![License: Apache 2.0](https://img.shields.io/badge/license-Apache%20License%202.0-blue)
 
