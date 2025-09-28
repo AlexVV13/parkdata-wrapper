@@ -1,4 +1,3 @@
-// src/destinations/ParcAsterix.js
 import fs from "fs";
 import path from "path";
 import axios from "axios";
@@ -17,12 +16,21 @@ const PACKAGE_VERSION = "1.1.29";
 const CACHE_DIR = path.resolve("./cache");
 if (!fs.existsSync(CACHE_DIR)) fs.mkdirSync(CACHE_DIR);
 
+/**
+ * Class representing Parc Astérix park
+ * @extends ParkBase
+ */
 export default class ParcAsterix extends ParkBase {
+  /**
+   * Create a ParcAsterix instance
+   * @param {Object} [options={}] - Optional configuration
+   * @param {string} [options.timezone] - Timezone to use, default "Europe/Paris"
+   */
   constructor(options = {}) {
     super({
       parkId: "parcasterix",
       name: "Parc Astérix",
-      destination: null, // geen resort
+      destination: null,
       apiConfig: { baseUrl: GRAPHQL_URL },
       timezone: options.timezone || "Europe/Paris",
     });
@@ -33,6 +41,14 @@ export default class ParcAsterix extends ParkBase {
   }
 
   // ───────────── GraphQL Helper ─────────────
+
+  /**
+   * Make a GraphQL query to the Parc Astérix middleware API
+   * @param {string} query - GraphQL query string
+   * @param {Object} [variables={}] - Optional query variables
+   * @returns {Promise<Object>} - Response data
+   * @throws {Error} - Throws if GraphQL returns errors
+   */
   async makeGraphQLQuery(query, variables = {}) {
     const resp = await axios.post(
       GRAPHQL_URL,
@@ -46,6 +62,12 @@ export default class ParcAsterix extends ParkBase {
   }
 
   // ───────────── Download Offline Package ─────────────
+
+  /**
+   * Download the latest offline package from Parc Astérix API and extract SQLite file
+   * @returns {Promise<void>}
+   * @throws {Error} - Throws if package or SQLite file not found
+   */
   async downloadOfflinePackage() {
     const resp = await axios.post(
       GRAPHQL_URL,
@@ -85,6 +107,11 @@ export default class ParcAsterix extends ParkBase {
     this.sqliteFile = tmpFile;
   }
 
+  /**
+   * Convert a string like "10h30" or "2:15 pm" to hour/minute numbers
+   * @param {string} str - Time string
+   * @returns {{hour: number, minute: number}|null}
+   */
   stringHoursToNumbers(str) {
     if (!str) return null;
     const match = str.match(
@@ -103,6 +130,11 @@ export default class ParcAsterix extends ParkBase {
   }
 
   // ───────────── Load POI Database ─────────────
+
+  /**
+   * Load Points of Interest (POI) from the offline SQLite database
+   * @returns {Promise<{poi: Array, calendar: Array}>} - POI and calendar data
+   */
   async _loadPOIDatabase() {
     await this.downloadOfflinePackage();
     const db = new Database(this.sqliteFile, { readonly: true });
@@ -188,6 +220,11 @@ export default class ParcAsterix extends ParkBase {
   }
 
   // ───────────── POI Getters ─────────────
+
+  /**
+   * Get all attractions with live wait times
+   * @returns {Promise<Array>} - Normalized attraction entities
+   */
   async getAttractions() {
     const { poi } = await this._loadPOIDatabase();
     const liveData = await this.buildEntityLiveData();
@@ -206,13 +243,17 @@ export default class ParcAsterix extends ParkBase {
             { if: (src) => src.experience === "thrill", tag: TAGS.THRILL },
           ]),
           location: { lat: a.latitude, lng: a.longitude },
-          waitTime: live?.waitTime ?? null,
+          waitTime: live?.waitTime ?? 0,
           status: live?.status ?? "Unknown",
           queues: live?.queues ?? [],
         });
       });
   }
 
+  /**
+   * Get all shows
+   * @returns {Promise<Array>} - Normalized show entities
+   */
   async getShows() {
     const { poi, calendar } = await this._loadPOIDatabase();
     return poi
@@ -232,6 +273,10 @@ export default class ParcAsterix extends ParkBase {
       );
   }
 
+  /**
+   * Get all restaurants
+   * @returns {Promise<Array>} - Normalized restaurant entities
+   */
   async getRestaurants() {
     const { poi, calendar } = await this._loadPOIDatabase();
     return poi
@@ -251,6 +296,10 @@ export default class ParcAsterix extends ParkBase {
       );
   }
 
+  /**
+   * Get opening times grouped by date
+   * @returns {Promise<Array<{date: string, intervals: Array}>>}
+   */
   async getOpeningTimes() {
     const { calendar } = await this._loadPOIDatabase();
     const grouped = {};
@@ -272,6 +321,11 @@ export default class ParcAsterix extends ParkBase {
   }
 
   // ───────────── Live Wait Times ─────────────
+
+  /**
+   * Fetch raw wait time data from API
+   * @returns {Promise<Object>} - Wait time GraphQL response
+   */
   async getWaitTimeData() {
     const query = `query paxPolling {
       paxLatencies { drupalId latency isOpen }
@@ -279,13 +333,17 @@ export default class ParcAsterix extends ParkBase {
     return this.makeGraphQLQuery(query);
   }
 
+  /**
+   * Build live entity data including wait times and status
+   * @returns {Promise<Array>} - Array of live entities
+   */
   async buildEntityLiveData() {
     const waitTimes = await this.getWaitTimeData();
     return waitTimes.paxLatencies.map((x) => {
       const latency =
         x.latency != null && !isNaN(parseInt(x.latency, 10))
           ? parseInt(x.latency, 10)
-          : null;
+          : 0;
 
       if (!x.isOpen) {
         return {
@@ -308,6 +366,11 @@ export default class ParcAsterix extends ParkBase {
   }
 
   // ───────────── Destination & Park Entities ─────────────
+
+  /**
+   * Build the destination entity object
+   * @returns {Promise<Object>} - Destination entity
+   */
   async buildDestinationEntity() {
     return {
       ...this.getMetadata(),
@@ -319,6 +382,10 @@ export default class ParcAsterix extends ParkBase {
     };
   }
 
+  /**
+   * Build the park entity object
+   * @returns {Promise<Array<Object>>} - Array of park entities
+   */
   async buildParkEntities() {
     return [
       {

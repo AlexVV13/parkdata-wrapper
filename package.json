@@ -10,7 +10,8 @@
   "scripts": {
     "test": "node test/test.js",
     "lint": "eslint .",
-    "build": "echo \"No build step needed for now\""
+    "build": "echo \"No build step needed for now\"",
+    "docs": "jsdoc -c jsdoc.json"
   },
   "keywords": [
     "parkdata",
@@ -36,8 +37,9 @@
     "moment-timezone": "^0.6.0"
   },
   "devDependencies": {
-    "eslint": "^9.36.0",
-    "jest": "^29.7.0"
+    "docdash": "^2.0.2",
+    "eslint": "^8.50.0",
+    "jest": "^29.7.0",
+    "jsdoc": "^4.0.4"
   }
 }
-

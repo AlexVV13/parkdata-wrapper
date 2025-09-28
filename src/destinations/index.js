@@ -1,6 +1,17 @@
-// src/index.js
 import ParcAsterix from './parcasterix/parcasterix.js';
 
+/**
+ * Alle ondersteunde bestemmingen / resorts.
+ * Resorts bevatten meerdere parken, losse parken bevatten enkel zichzelf.
+ *
+ * @type {Object.<string, Object>}
+ * @property {Object} parcAsterix - Parc Asterix park instance
+ *
+ * @example
+ * import destinations from './src/index.js';
+ * const parc = destinations.parcAsterix;
+ * const attractions = await parc.getAttractions();
+ */
 export const destinations = {
     // Resort voorbeeld (Universal / Disney etc.)
     // universalOrlando: {
@@ -12,7 +23,7 @@ export const destinations = {
     // },
 
     // Los park (geen resort)
-  parcAsterix: new ParcAsterix(),
+    parcAsterix: new ParcAsterix(),
 };
 
 export default destinations;
