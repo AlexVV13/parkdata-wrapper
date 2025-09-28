@@ -1,39 +1,43 @@
 # parkData
 
-Een Node.js-module voor het ophalen van parkgegevens, zoals attracties, restaurants, shows, openingstijden en wachttijden, voor verschillende pretparken en resorts.
-
-### Badges
+A Node.js wrapper for retrieving theme park data such as attractions, restaurants, shows, opening hours, and live wait times for various parks and resorts.
 
 ![Node.js CI](https://github.com/AlexVV13/parkdata-wrapper/actions/workflows/nodejs.yml/badge.svg)
 ![Documentation](https://github.com/AlexVV13/parkdata-wrapper/actions/workflows/jsdoc.yml/badge.svg)
 ![Dependabot Status](https://img.shields.io/badge/dependabot-up_to_date-brightgreen)
 ![License: Apache 2.0](https://img.shields.io/badge/license-Apache%20License%202.0-blue)
 
-## Installatie
+---
+
+## 📦 Installation
 
 ```bash
 npm install parkdata
-````
-
-## Importeren
-
-```
-import parkData from 'parkdata';
-
-// Of als je specifieke bestemming wilt importeren
-import { parcAsterix } from 'parkdata/dist/destinations/index.js';
 ```
 
-## Gebruik
+---
 
+## 📥 Importing
+
+```js
+import { parkData } from 'parkdata';
+
+// Or import a specific destination
+import { parcAsterix } from 'parkdata/src/destinations/index.js';
 ```
-import { parkData } from '@alexvv13/parkData';
+
+---
+
+## 🚀 Usage
+
+```js
+import { parkData } from 'parkData';
 
 async function main() {
-  // Alle bestemmingen
+  // All available destinations
   console.log(parkData.destinations);
 
-  // Een specifiek park
+  // Specific park
   const parcAsterix = parkData.destinations.parcAsterix;
   const attractions = await parcAsterix.getAttractions();
   console.log(attractions);
@@ -41,41 +45,46 @@ async function main() {
   const openingTimes = await parcAsterix.getOpeningTimes();
   console.log(openingTimes);
 }
+
 main();
 ```
 
-## Structuur van parkData
+---
+
+## 🗂️ Structure
 
 ```
 parkData
-│
 └───destinations
-    │
-    ├── parcAsterix
-        └── Parc Asterix (park)
-            ├── Attractions
-            ├── Restaurants
-            ├── Shows
-            └── OpeningTimes
+    └───parcAsterix
+        ├── Attractions
+        ├── Restaurants
+        ├── Shows
+        └── OpeningTimes
 ```
 
-## Ondersteunde bestemmingen
+---
 
-| Slug             | Naam              | Type   | Locatie (Lat,Lon)   |
-| ---------------- | ----------------- | ------ | ------------------- |
-| parcAsterix      | Parc Asterix      | Park   | 49.136750, 2.573816 |
+## 🎢 Supported Destinations
 
-> **Opmerking:** Als een bestemming een resort is, worden de individuele parken binnen het resort automatisch weergegeven. Bijvoorbeeld: `Universal Orlando -> Universal Islands of Adventure`.
+| Slug        | Name         | Type | Location (Lat, Lon)     |
+|-------------|--------------|------|--------------------------|
+| parcAsterix | Parc Asterix | Park | 49.136750, 2.573816      |
 
-## Functionaliteit
+> ℹ️ **Note:** If a destination is a resort, its individual parks will be listed automatically. Example: `Universal Orlando → Universal Islands of Adventure`.
 
-* `getAttractions()` - Haalt alle attracties op.
-* `getRestaurants()` - Haalt alle restaurants op.
-* `getShows()` - Haalt alle shows op.
-* `getOpeningTimes()` - Haalt de openingstijden van het park op.
-* `getWaitTimeData()` - Haalt live wachttijden op voor attracties.
+---
 
-## Licentie
+## 🔧 Features
 
-Apache 2.0
+- `getAttractions()` – Fetches all attractions.
+- `getRestaurants()` – Fetches all restaurants.
+- `getShows()` – Fetches all shows.
+- `getOpeningTimes()` – Fetches park opening hours.
+- `getWaitTimeData()` – Fetches live wait times for attractions.
 
+---
+
+## 📄 License
+
+Licensed under the **Apache 2.0** license.
