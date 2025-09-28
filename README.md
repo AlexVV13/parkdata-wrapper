@@ -6,7 +6,7 @@ Een Node.js-module voor het ophalen van parkgegevens, zoals attracties, restaura
 
 ![Node.js CI](https://github.com/AlexVV13/parkdata-wrapper/actions/workflows/nodejs.yml/badge.svg)
 ![Dependabot Status](https://img.shields.io/badge/dependabot-up_to_date-brightgreen)
-![License: MIT](https://img.shields.io/badge/license-MIT-blue)
+![License: Apache 2.0](https://img.shields.io/badge/license-Apache%20License%202.0-blue)
 
 ## Installatie
 
@@ -76,5 +76,5 @@ parkData
 
 ## Licentie
 
-MIT
+Apache 2.0
 
