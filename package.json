@@ -53,7 +53,7 @@
   "devDependencies": {
     "@eslint/js": "^9.36.0",
     "docdash": "^2.0.2",
-    "eslint": "^8.57.1",
+    "eslint": "^9.37.0",
     "eslint-config-google": "^0.14.0",
     "globals": "^16.4.0",
     "jest": "^30.2.0",
